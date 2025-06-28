@@ -41,7 +41,12 @@ export default function UserMenu() {
           stroke="currentColor"
           viewBox="0 0 24 24"
         >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M19 9l-7 7-7-7"
+          />
         </svg>
       </button>
 
@@ -61,6 +66,20 @@ export default function UserMenu() {
               onClick={() => setMenuOpen(false)}
             >
               {t('myPrayers')}
+            </Link>
+            <Link
+              href="/intercessions"
+              className="block px-4 py-2 hover:bg-gray-100"
+              onClick={() => setMenuOpen(false)}
+            >
+              {t('intercessions')}
+            </Link>
+            <Link
+              href="/intercessions/pray"
+              className="block px-4 py-2 hover:bg-gray-100"
+              onClick={() => setMenuOpen(false)}
+            >
+              {t('pray')}
             </Link>
             {(role === 'admin' || role === 'superadmin') && (
               <Link

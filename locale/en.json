@@ -15,8 +15,10 @@
     "login": "Sign in"
   },
   "UserMenu": {
-     "profile": "My Profile",
+    "profile": "My Profile",
     "myPrayers": "My Prayer Requests",
+    "intercessions": "All Prayer Requests",
+    "pray": "Pray Now",
     "admin": "Admin Panel",
     "signOut": "Sign out"
   },
@@ -35,5 +37,13 @@
       "startRecording": "Start Recording",
       "recording": "Recording..."
     }
+  },
+  "Me": {
+    "title": "My Profile",
+    "description": "Check your personal information and account status.",
+    "name": "Name",
+    "email": "Email",
+    "joinedAt": "Joined At",
+    "role": "Role"
   }
 }

@@ -17,6 +17,8 @@
   "UserMenu": {
      "profile": "내 정보",
     "myPrayers": "내 기도 요청",
+    "intercessions": "중보기도 목록",
+    "pray": "기도하기",
     "admin": "관리자 페이지",
     "signOut": "로그아웃"
   },
@@ -35,5 +37,13 @@
       "startRecording": "녹음 시작",
       "recording": "녹음 중..."
     }
+  },
+  "Me": {
+    "title": "내 프로필",
+    "description": "회원 정보와 계정 상태를 확인할 수 있습니다.",
+    "name": "이름",
+    "email": "이메일",
+    "joinedAt": "가입일",
+    "role": "역할"
   }
 }
