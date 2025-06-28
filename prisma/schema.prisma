@@ -1,0 +1,57 @@
+// schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  superadmin
+  admin
+  intercessor
+  user
+}
+
+model profiles {
+  id               String   @id @default(uuid()) @db.Uuid
+  name             String
+  email            String
+  provider         String
+  auth_provider_id String   @unique
+  role             Role?
+  agreed_to_pledge Boolean  @default(false)
+  created_at       DateTime @default(now())
+
+  // Relations
+  prayers         prayers[]        @relation("RequestedBy")
+  intercessions   intercessions[]  @relation("UserIntercessions")
+}
+
+model prayers {
+  id            String      @id @default(uuid()) @db.Uuid
+  title         String
+  content       String
+  requested_by  String      @db.Uuid
+  deadline      DateTime?
+  is_anonymous  Boolean     @default(false)
+  created_at    DateTime    @default(now())
+
+  // Relations
+  requestedBy   profiles    @relation("RequestedBy", fields: [requested_by], references: [id])
+  intercessions intercessions[]
+}
+
+model intercessions {
+  id         String   @id @default(uuid()) @db.Uuid
+  user_id    String   @db.Uuid
+  prayer_id  String   @db.Uuid
+  created_at DateTime @default(now())
+
+  // Relations
+  user    profiles  @relation("UserIntercessions", fields: [user_id], references: [id])
+  prayer  prayers   @relation(fields: [prayer_id], references: [id])
+}

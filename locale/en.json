@@ -1,0 +1,39 @@
+{
+  "NavigationBar": {
+    "home": "Home",
+    "requests": "Prayer Requests",
+    "myIntercessions": "My Intercessions",
+    "agreement": "Agreement",
+    "newPrayerRequestButton": "New Prayer Request",
+    "searchPlaceholder": "Search for prayers, members..."
+  },
+  "HomePage": {
+    "welcome": "Welcome to KCPC Prayers Portal",
+    "description": "Join us in intercessory prayer and sharing your burdens."
+  },
+  "LoginButton": {
+    "login": "Sign in"
+  },
+  "UserMenu": {
+     "profile": "My Profile",
+    "myPrayers": "My Prayer Requests",
+    "admin": "Admin Panel",
+    "signOut": "Sign out"
+  },
+  "Footer": {
+  },
+  "MyPrayersNew": {
+    "back": "Back",
+    "title": "New Prayer Request",
+    "form": {
+      "title": "Title",
+      "content": "Content",
+      "deadline": "Deadline",
+      "isAnonymous": "Submit Anonymously",
+      "submit": "Submit",
+      "stopRecording": "Stop Recording",
+      "startRecording": "Start Recording",
+      "recording": "Recording..."
+    }
+  }
+}

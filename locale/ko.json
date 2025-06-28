@@ -1,0 +1,39 @@
+{
+  "NavigationBar": {
+    "home": "홈",
+    "requests": "기도 요청",
+    "myIntercessions": "나의 중보기도",
+    "agreement": "서약서",
+    "newPrayerRequestButton": "새 기도 요청",
+    "searchPlaceholder": "기도 요청, 멤버 검색..."
+  },
+  "HomePage": {
+    "welcome": "KCPC 기도 포털에 오신 것을 환영합니다",
+    "description": "중보기도와 기도제목 나눔에 함께 하세요."
+  },
+  "LoginButton": {
+    "login": "로그인"
+  },
+  "UserMenu": {
+     "profile": "내 정보",
+    "myPrayers": "내 기도 요청",
+    "admin": "관리자 페이지",
+    "signOut": "로그아웃"
+  },
+  "Footer": {
+  },
+  "MyPrayersNew": {
+    "back": "뒤로가기",
+    "title": "새 기도 요청",
+    "form": {
+      "title": "제목",
+      "content": "내용",
+      "deadline": "마감일",
+      "isAnonymous": "익명으로 요청",
+      "submit": "제출",
+      "stopRecording": "녹음 중지",
+      "startRecording": "녹음 시작",
+      "recording": "녹음 중..."
+    }
+  }
+}
