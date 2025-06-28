@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import * as adminService from '@/services/adminService';
 import { Role } from '@prisma/client';
 
+// GET 요청: 사용자 목록을 페이지네이션하여 가져옵니다.
+// 예시: GET /api/authorization?page=1&pageSize=20
 export async function GET(request: Request) {
   try {
     const url = new URL(request.url);
@@ -16,19 +18,25 @@ export async function GET(request: Request) {
   }
 }
 
-export async function PATCH(request: Request,{ params }: { params: { userId: string } }) {
+// PATCH 요청: 특정 사용자의 역할을 업데이트합니다.
+// 예시: PATCH /api/authorization
+// 요청 본문: { "userId": "some-user-id", "newRole": "ADMIN", "currentUserRole": "USER" }
+export async function PATCH(request: Request) {
   try {
-    const userId = params.userId;
-    const { newRole, currentUserRole } = await request.json();
+    // userId를 요청 본문(body)에서 직접 파싱합니다.
+    const { userId, newRole, currentUserRole } = await request.json();
 
-    console.log('Updating role for user:', userId, 'to', newRole, 'by', currentUserRole);
-    
+    // 필수 필드 유효성 검사 (추가)
+    if (!userId || !newRole || !currentUserRole) {
+      return NextResponse.json({ error: 'Missing required fields: userId, newRole, or currentUserRole' }, { status: 400 });
+    }
 
+    // Role enum 유효성 검사
     if (!Object.values(Role).includes(newRole)) {
-      return NextResponse.json({ error: 'Invalid newRole' }, { status: 400 });
+      return NextResponse.json({ error: 'Invalid newRole provided' }, { status: 400 });
     }
     if (!Object.values(Role).includes(currentUserRole)) {
-      return NextResponse.json({ error: 'Invalid currentUserRole' }, { status: 400 });
+      return NextResponse.json({ error: 'Invalid currentUserRole provided' }, { status: 400 });
     }
 
     const updatedUser = await adminService.updateUserRole(
@@ -41,5 +49,27 @@ export async function PATCH(request: Request,{ params }: { params: { userId: str
   } catch (error: any) {
     console.error('Failed to update role:', error);
     return NextResponse.json({ error: error.message || 'Failed to update role' }, { status: 500 });
+  }
+}
+
+// DELETE 요청: 특정 사용자를 삭제합니다.
+// 예시: DELETE /api/authorization
+// 요청 본문: { "userId": "some-user-id" }
+export async function DELETE(request: Request) {
+  try {
+    // userId를 요청 본문(body)에서 직접 파싱합니다.
+    const { userId } = await request.json();
+
+    // 필수 필드 유효성 검사 (추가)
+    if (!userId) {
+      return NextResponse.json({ error: 'Missing required field: userId' }, { status: 400 });
+    }
+
+    await adminService.deleteUser(userId);
+
+    return NextResponse.json({ success: true, message: `User ${userId} deleted successfully.` });
+  } catch (error: any) {
+    console.error('Failed to delete user:', error);
+    return NextResponse.json({ error: error.message || 'Failed to delete user' }, { status: 500 });
   }
 }

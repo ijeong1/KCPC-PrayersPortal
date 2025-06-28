@@ -69,11 +69,11 @@ export default function AdminPageClient() {
 
     setFilteredUsers(filtered);
   }, [users, filterRole, searchText]);
-
   // 🟢 역할 변경 핸들러
   const handleRoleChange = async (userId: string, newRole: Role) => {
     try {
-      await axiosClient.patch(`/authorization/${userId}`, {
+      await axiosClient.patch('/authorization', {
+        userId,
         newRole,
         currentUserRole,
       });
@@ -96,7 +96,11 @@ export default function AdminPageClient() {
     }
 
     try {
-      await axiosClient.delete(`/authorization/${userId}`);
+      await axiosClient.delete('/authorization', {
+        data: {
+          userId,
+        },
+      });
       fetchUsers(currentPage);
     } catch (err: any) {
       alert(err.response?.data?.error || 'Failed to delete account.');
