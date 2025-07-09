@@ -1,4 +1,5 @@
 import NextAuth from "next-auth";
+import { Role, PrayerStatus } from '@prisma/client';
 
 declare module "next-auth" {
   interface Session {
@@ -7,7 +8,7 @@ declare module "next-auth" {
       name?: string | null;
       email?: string | null;
       image?: string | null;
-      role?: "superadmin" | "admin" | "intercessor" | "user";
+      role?: Role; // Role 타입을 사용
       agreed_to_pledge?: boolean;
       provider?: string;
       auth_provider_id?: string;
