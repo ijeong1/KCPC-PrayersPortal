@@ -14,7 +14,7 @@ export default function LoginButton() {
 
   return (
     <button
-      onClick={() => signIn('google', { callbackUrl: `/${locale}` })}
+      onClick={() => signIn('google', { callbackUrl: `/${locale}/dashboard` })}
       className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md font-semibold shadow"
     >
       {t('login')}

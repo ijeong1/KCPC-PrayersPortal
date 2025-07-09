@@ -9,21 +9,25 @@
   },
   "HomePage": {
     "welcome": "KCPC 기도 포털에 오신 것을 환영합니다",
-    "description": "중보기도와 기도제목 나눔에 함께 하세요."
+    "description": "중보기도와 기도제목 나눔에 함께 하세요.",
+    "loading": "로딩 중..."
   },
   "LoginButton": {
     "login": "로그인"
   },
+  "Login": {
+    "title": "로그인",
+    "signInWithGoogle": "구글 계정으로 로그인"
+  },
   "UserMenu": {
-     "profile": "내 정보",
+    "profile": "내 정보",
     "myPrayers": "내 기도 요청",
     "intercessions": "중보기도 목록",
     "pray": "기도하기",
     "admin": "관리자 페이지",
     "signOut": "로그아웃"
   },
-  "Footer": {
-  },
+  "Footer": {},
   "MyPrayersNew": {
     "back": "뒤로가기",
     "title": "새 기도 요청",
@@ -35,15 +39,124 @@
       "submit": "제출",
       "stopRecording": "녹음 중지",
       "startRecording": "녹음 시작",
-      "recording": "녹음 중..."
+      "recording": "녹음 중...",
+      "ocrFromImage": "이미지 OCR로 채우기",
+      "readTextFromImage": "이미지에서 텍스트 읽기",
+      "categories": "카테고리",
+      "loadingCategories": "카테고리 로딩중...",
+      "errorLoadingCategories": "카테고리 불러오는중 에러 발생"
+    },
+    "inputMode": {
+      "manual": "수동 입력",
+      "voice": "음성 입력",
+      "image": "사진 입력"
+    },
+    "submitStatus": {
+      "submitting": "제출중...",
+      "success": "성공적으로 제출되었습니다.",
+      "error": "제출 중 오류가 발생했습니다. 다시 시도해주세요."
     }
   },
   "Me": {
-    "title": "내 프로필",
-    "description": "회원 정보와 계정 상태를 확인할 수 있습니다.",
-    "name": "이름",
-    "email": "이메일",
-    "joinedAt": "가입일",
-    "role": "역할"
+    "header": {
+      "title": "내 프로필",
+      "description": "회원 정보와 계정 상태를 확인할 수 있습니다."
+    },
+    "section": {
+      "title": "기본 정보"
+    },
+    "fields": {
+      "name": "이름",
+      "email": "이메일",
+      "joinedAt": "가입일",
+      "role": "역할"
+    },
+    "actions": {
+      "edit": "프로필 수정"
+    },
+    "messages": {
+      "loading": "로딩 중입니다...",
+      "noProfile": "프로필 정보를 불러올 수 없습니다."
+    },
+    "roles": {
+      "user": "일반 사용자",
+      "intercessor": "중보기도자",
+      "admin": "관리자",
+      "superadmin": "관리자"
+    }
+  },
+  "MyPrayersPage": {
+    "myPrayers": "나의 기도 제목",
+    "newPrayer": "새 기도 요청",
+    "noPrayers": "아직 기도 제목이 없습니다.",
+    "loading": "로딩 중...",
+    "pleaseLogin": "기도 목록을 보려면 로그인 해주세요.",
+    "status": "상태",
+    "pending": "대기 중",
+    "inProgress": "기도 중",
+    "completed": "완료됨",
+    "close": "닫기",
+    "viewDetails": "응답내용 공유",
+    "category": "카테고리",
+    "categories": {
+      "Health": "건강",
+      "FamilyHarmony": "가족 화합",
+      "Finance": "재정",
+      "Academics": "학업",
+      "Employment": "취업",
+      "Promotion": "승진",
+      "Romance": "연애",
+      "Marriage": "결혼",
+      "Childbirth": "출산",
+      "Funeral": "장례",
+      "Business": "사업",
+      "Relationship": "관계",
+      "Happiness": "행복",
+      "Peace": "평화",
+      "Courage": "용기",
+      "Wisdom": "지혜",
+      "FaithLife": "신앙 생활",
+      "Change": "변화",
+      "Other": "기타"
+    },
+    "responseContent": "당신의 응답",
+    "responsePlaceholder": "여기에 응답을 작성하세요...",
+    "shareConsent": "이 응답을 공개적으로 공유하는 데 동의합니다",
+    "posting": "제출",
+    "submitResponse": "제출",
+    "yourResponse": "응답받은 내용",
+    "delete": "삭제",
+    "deleteConfirm": "이 기도를 삭제하시겠습니까?",
+    "deleteError": "기도 삭제에 실패했습니다."
+  },
+  "IntercessionsPage": {
+    "page_title": "기도 중보 목록",
+    "page_subtitle": "서로를 위한 기도를 찾아보고 동참하세요",
+    "search_placeholder": "기도 제목 또는 내용 검색...",
+    "all_categories": "모든 카테고리",
+    "sort_by_due_date": "마감일 순 (오름차순)",
+    "sort_by_latest": "최신순",
+    "saving_prayer_message": "저장 중...",
+    "prayer_saved_success": "기도가 내 목록에 저장되었습니다!",
+    "prayer_save_failed_generic": "기도 저장에 실패했습니다.",
+    "prayer_save_failed_prefix": "기도 저장에 실패했습니다",
+    "loading_prayers": "기도 목록을 불러오는 중...",
+    "due_date": "마감",
+    "requester": "요청자",
+    "save_to_my_list": "내 기도 목록에 저장",
+    "no_prayers_found": "해당하는 기도가 없습니다.",
+    "category_fetch_error_console": "카테고리 불러오기 오류:",
+    "category_fetch_error_message": "카테고리를 불러올 수 없습니다.",
+    "prayer_list_fetch_error_console": "기도 목록 불러오기 오류:",
+    "prayer_list_fetch_error_message": "기도 목록을 불러올 수 없습니다.",
+    "prayer_save_error_console": "기도 저장 오류:",
+    "please_login_to_save": "기도를 저장하려면 로그인해주세요.",
+    "please_login_to_view": "기도 목록을 보려면 로그인해주세요.",
+    "login_button": "로그인",
+    "remove_from_my_list": "내 기도 목록에서 제거",
+    "prayer_removed_success": "기도가 내 목록에서 제거되었습니다.",
+    "prayer_save_failed": "기도 저장에 실패했습니다.",
+    "prayer_remove_failed": "기도 제거에 실패했습니다.",
+    "prayer_save_remove_error": "기도 저장/제거 중 오류가 발생했습니다."
   }
 }

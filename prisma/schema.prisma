@@ -1,5 +1,3 @@
-// schema.prisma
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -9,6 +7,72 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model profiles {
+  id               String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name             String
+  email            String          @unique
+  provider         String
+  auth_provider_id String          @unique
+  role             Role?
+  agreed_to_pledge Boolean?        @default(false)
+  address          String?
+  county           String?
+  latitude         Float?
+  longitude        Float?
+  created_at       DateTime?       @default(now()) @db.Timestamp(6)
+  updated_at       DateTime?       @db.Timestamp(6)
+  intercessions    intercessions[] @relation("UserIntercessions")
+  prayers          prayers[]       @relation("RequestedBy")
+  responses        responses[]
+}
+
+model prayers {
+  id            String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title         String
+  content       String
+  category_id   String          @db.Uuid
+  requested_by  String          @db.Uuid
+  deadline      DateTime?       @db.Timestamp(6)
+  is_anonymous  Boolean?        @default(false)
+  created_at    DateTime?       @default(now()) @db.Timestamp(6)
+  updated_at    DateTime        @db.Timestamp(6)
+  status        PrayerStatus?         @default(PENDING) 
+  intercessions intercessions[]
+  category      category        @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  requestedBy   profiles        @relation("RequestedBy", fields: [requested_by], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  responses     responses[]
+}
+
+model intercessions {
+  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id    String    @db.Uuid
+  prayer_id  String    @db.Uuid
+  created_at DateTime? @default(now()) @db.Timestamp(6)
+  prayer     prayers   @relation(fields: [prayer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  user       profiles  @relation("UserIntercessions", fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@unique([user_id, prayer_id], name: "user_id_prayer_id")
+}
+
+model responses {
+  id           String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  prayer_id    String    @db.Uuid
+  responder_id String?   @db.Uuid
+  content      String
+  created_at   DateTime? @default(now()) @db.Timestamp(6)
+  is_shared    Boolean   @default(false)
+  prayers      prayers   @relation(fields: [prayer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  profiles     profiles? @relation(fields: [responder_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model category {
+  id      String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  key     String    @unique
+  name_en String
+  name_ko String
+  prayers prayers[]
+}
+
 enum Role {
   superadmin
   admin
@@ -16,42 +80,9 @@ enum Role {
   user
 }
 
-model profiles {
-  id               String   @id @default(uuid()) @db.Uuid
-  name             String
-  email            String
-  provider         String
-  auth_provider_id String   @unique
-  role             Role?
-  agreed_to_pledge Boolean  @default(false)
-  created_at       DateTime @default(now())
-
-  // Relations
-  prayers         prayers[]        @relation("RequestedBy")
-  intercessions   intercessions[]  @relation("UserIntercessions")
-}
-
-model prayers {
-  id            String      @id @default(uuid()) @db.Uuid
-  title         String
-  content       String
-  requested_by  String      @db.Uuid
-  deadline      DateTime?
-  is_anonymous  Boolean     @default(false)
-  created_at    DateTime    @default(now())
-
-  // Relations
-  requestedBy   profiles    @relation("RequestedBy", fields: [requested_by], references: [id])
-  intercessions intercessions[]
-}
-
-model intercessions {
-  id         String   @id @default(uuid()) @db.Uuid
-  user_id    String   @db.Uuid
-  prayer_id  String   @db.Uuid
-  created_at DateTime @default(now())
-
-  // Relations
-  user    profiles  @relation("UserIntercessions", fields: [user_id], references: [id])
-  prayer  prayers   @relation(fields: [prayer_id], references: [id])
+enum PrayerStatus {
+  PENDING      // 아직 시작 안 함
+  IN_PROGRESS  // 중보기도 진행 중
+  COMPLETED    // 중보기도 완료
+  ARCHIVED     // 보관됨 (선택 사항)
 }

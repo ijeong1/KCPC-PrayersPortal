@@ -67,20 +67,25 @@ export default function UserMenu() {
             >
               {t('myPrayers')}
             </Link>
-            <Link
-              href="/intercessions"
-              className="block px-4 py-2 hover:bg-gray-100"
-              onClick={() => setMenuOpen(false)}
-            >
-              {t('intercessions')}
-            </Link>
-            <Link
-              href="/intercessions/pray"
-              className="block px-4 py-2 hover:bg-gray-100"
-              onClick={() => setMenuOpen(false)}
-            >
-              {t('pray')}
-            </Link>
+            {/* intercessor 이상만 보이는 메뉴 */}
+            {(role === 'intercessor' || role === 'admin' || role === 'superadmin') && (
+              <>
+              <Link
+                href="/intercessions"
+                className="block px-4 py-2 hover:bg-gray-100"
+                onClick={() => setMenuOpen(false)}
+              >
+                {t('intercessions')}
+              </Link>
+              <Link
+                href="/intercessions/pray"
+                className="block px-4 py-2 hover:bg-gray-100"
+                onClick={() => setMenuOpen(false)}
+              >
+                {t('pray')}
+              </Link>
+              </>
+            )}
             {(role === 'admin' || role === 'superadmin') && (
               <Link
                 href="/admin"

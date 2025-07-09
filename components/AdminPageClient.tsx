@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import axiosClient from '@/lib/axiosClient';
 import { useSession } from 'next-auth/react';
+import Link from 'next/link'; // Import Link
 
 type Role = 'user' | 'intercessor' | 'admin' | 'superadmin';
 
@@ -69,6 +70,7 @@ export default function AdminPageClient() {
 
     setFilteredUsers(filtered);
   }, [users, filterRole, searchText]);
+
   // 🟢 역할 변경 핸들러
   const handleRoleChange = async (userId: string, newRole: Role) => {
     try {
@@ -121,7 +123,14 @@ export default function AdminPageClient() {
 
   return (
     <div className="p-6 flex flex-col min-h-screen">
-      <h1 className="text-3xl font-semibold mb-4 text-gray-900">Users</h1>
+      <div className="flex justify-between items-center mb-4"> {/* Added a flex container */}
+        <h1 className="text-3xl font-semibold text-gray-900">Users</h1>
+        <Link href="/admin/response" passHref>
+          <button className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">
+            Go to FullScreen Responses
+          </button>
+        </Link>
+      </div>
 
       {/* 🔍 필터 */}
       <div className="mb-4 flex flex-wrap gap-4 items-center">

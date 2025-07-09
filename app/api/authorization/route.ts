@@ -1,16 +1,26 @@
+// app/api/authorization/route.ts
 import { NextResponse } from 'next/server';
 import * as adminService from '@/services/adminService';
 import { Role } from '@prisma/client';
 
-// GET 요청: 사용자 목록을 페이지네이션하여 가져옵니다.
-// 예시: GET /api/authorization?page=1&pageSize=20
+// GET 요청: 사용자 목록을 페이지네이션, 검색, 필터링하여 가져옵니다.
+// 예시: GET /api/authorization?page=1&pageSize=20&search=john&role=INTERCESSOR
 export async function GET(request: Request) {
   try {
     const url = new URL(request.url);
     const page = Number(url.searchParams.get('page') ?? '1');
     const pageSize = Number(url.searchParams.get('pageSize') ?? '20');
+    // 👇 새로운 파라미터 추가
+    const search = url.searchParams.get('search') || '';
+    const roleFilter = url.searchParams.get('role') || ''; // 'all' 또는 특정 Role 값
 
-    const data = await adminService.getUsersWithPagination(page, pageSize);
+    // adminService.getUsersWithPagination 함수에 새로운 파라미터 전달
+    const data = await adminService.getUsersWithPagination(
+      page,
+      pageSize,
+      search,   // 검색어 전달
+      roleFilter // 역할 필터 전달
+    );
     return NextResponse.json(data);
   } catch (error) {
     console.error('Failed to fetch users:', error);
@@ -23,15 +33,12 @@ export async function GET(request: Request) {
 // 요청 본문: { "userId": "some-user-id", "newRole": "ADMIN", "currentUserRole": "USER" }
 export async function PATCH(request: Request) {
   try {
-    // userId를 요청 본문(body)에서 직접 파싱합니다.
     const { userId, newRole, currentUserRole } = await request.json();
 
-    // 필수 필드 유효성 검사 (추가)
     if (!userId || !newRole || !currentUserRole) {
       return NextResponse.json({ error: 'Missing required fields: userId, newRole, or currentUserRole' }, { status: 400 });
     }
 
-    // Role enum 유효성 검사
     if (!Object.values(Role).includes(newRole)) {
       return NextResponse.json({ error: 'Invalid newRole provided' }, { status: 400 });
     }
@@ -57,10 +64,8 @@ export async function PATCH(request: Request) {
 // 요청 본문: { "userId": "some-user-id" }
 export async function DELETE(request: Request) {
   try {
-    // userId를 요청 본문(body)에서 직접 파싱합니다.
     const { userId } = await request.json();
 
-    // 필수 필드 유효성 검사 (추가)
     if (!userId) {
       return NextResponse.json({ error: 'Missing required field: userId' }, { status: 400 });
     }

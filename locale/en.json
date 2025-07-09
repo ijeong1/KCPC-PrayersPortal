@@ -9,10 +9,15 @@
   },
   "HomePage": {
     "welcome": "Welcome to KCPC Prayers Portal",
-    "description": "Join us in intercessory prayer and sharing your burdens."
+    "description": "Join us in intercessory prayer and sharing your burdens.",
+    "loading": "Loading..."
   },
   "LoginButton": {
     "login": "Sign in"
+  },
+  "Login": {
+    "title": "Sign In",
+    "signInWithGoogle": "Sign in with Google"
   },
   "UserMenu": {
     "profile": "My Profile",
@@ -22,8 +27,7 @@
     "admin": "Admin Panel",
     "signOut": "Sign out"
   },
-  "Footer": {
-  },
+  "Footer": {},
   "MyPrayersNew": {
     "back": "Back",
     "title": "New Prayer Request",
@@ -35,15 +39,125 @@
       "submit": "Submit",
       "stopRecording": "Stop Recording",
       "startRecording": "Start Recording",
-      "recording": "Recording..."
+      "recording": "Recording...",
+      "ocrFromImage": "Fill using Image OCR",
+      "readTextFromImage": "Read Text from Image",
+      "categories": "Categories",
+      "loadingCategories": "Loading categories...",
+      "errorLoadingCategories": "Error loading categories"
+    },
+    "inputMode": {
+      "manual": "Manual Input",
+      "voice": "Voice Input",
+      "image": "Image Input"
+    },
+    "submitStatus": {
+      "submitting": "Submitting...",
+      "success": "Successfully submitted.",
+      "error": "An error occurred while submitting. Please try again."
     }
   },
   "Me": {
-    "title": "My Profile",
-    "description": "Check your personal information and account status.",
-    "name": "Name",
-    "email": "Email",
-    "joinedAt": "Joined At",
-    "role": "Role"
+    "header": {
+      "title": "My Profile",
+      "description": "You can view your member details and account status."
+    },
+    "section": {
+      "title": "Basic Information"
+    },
+    "fields": {
+      "name": "Name",
+      "email": "Email",
+      "joinedAt": "Joined Date",
+      "role": "Role"
+    },
+    "actions": {
+      "edit": "Edit Profile"
+    },
+    "messages": {
+      "loading": "Loading...",
+      "noProfile": "Unable to load your profile."
+    },
+    "roles": {
+      "user": "User",
+      "intercessor": "Intercessor",
+      "admin": "Administrator",
+      "superadmin": "Administrator"
+    }
+  },
+  "MyPrayersPage": {
+    "myPrayers": "My Prayers",
+    "newPrayer": "New Prayer Request",
+    "noPrayers": "No prayer requests yet.",
+    "loading": "Loading...",
+    "pleaseLogin": "Please log in to see your prayers.",
+    "status": "Status",
+    "pending": "Pending",
+    "inProgress": "In Progress",
+    "completed": "Completed",
+    "close": "Close",
+    "viewDetails": "Share Response",
+    "category": "Category",
+    "categories": {
+      "Health": "Health",
+      "FamilyHarmony": "Family Harmony",
+      "Finance": "Finance",
+      "Academics": "Academics",
+      "Employment": "Employment",
+      "Promotion": "Promotion",
+      "Romance": "Romance",
+      "Marriage": "Marriage",
+      "Childbirth": "Childbirth",
+      "Funeral": "Funeral",
+      "Business": "Business",
+      "Relationship": "Relationship",
+      "Happiness": "Happiness",
+      "Peace": "Peace",
+      "Courage": "Courage",
+      "Wisdom": "Wisdom",
+      "FaithLife": "Faith Life",
+      "Change": "Change",
+      "Other": "Other"
+    },
+    "responseContent": "Your Response",
+    "responsePlaceholder": "Write your response here...",
+    "shareConsent": "I agree to share this response publicly",
+    "submit": "Submit",
+    "posting": "Submit",
+    "submitResponse": "Submit",
+    "yourResponse": "Your Response",
+    "delete": "Delete",
+    "deleteConfirm": "Are you sure you want to delete this prayer?",
+    "deleteError": "Failed to delete the prayer."
+  },
+  "IntercessionsPage": {
+    "page_title": "Intercession List",
+    "page_subtitle": "Find and participate in prayers for one another",
+    "search_placeholder": "Search prayer title or content...",
+    "all_categories": "All Categories",
+    "sort_by_due_date": "Sort by Due Date (Asc)",
+    "sort_by_latest": "Sort by Latest",
+    "saving_prayer_message": "Saving...",
+    "prayer_saved_success": "Prayer saved to my list!",
+    "prayer_save_failed_generic": "Failed to save prayer.",
+    "prayer_save_failed_prefix": "Failed to save prayer",
+    "loading_prayers": "Loading prayer list...",
+    "due_date": "Due",
+    "requester": "Requester",
+    "save_to_my_list": "Save to My List",
+    "no_prayers_found": "No matching prayers found.",
+    "category_fetch_error_console": "Error fetching categories:",
+    "category_fetch_error_message": "Could not load categories.",
+    "prayer_list_fetch_error_console": "Error fetching prayer list:",
+    "prayer_list_fetch_error_message": "Could not load prayer list.",
+    "prayer_save_error_console": "Prayer save error:",
+    "please_login_to_save": "Please log in to save prayers.",
+    "please_login_to_view": "Please log in to view the prayer list.",
+    "login_button": "Log In",
+    "remove_from_my_list": "Remove from My List",
+    "prayer_removed_success": "Prayer removed from my list.",
+    "prayer_save_failed": "Failed to save prayer.",
+    "prayer_remove_failed": "Failed to remove prayer.",
+    "prayer_save_remove_error": "An error occurred while saving or removing the prayer. Please try again."
   }
 }

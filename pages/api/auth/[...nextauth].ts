@@ -39,7 +39,6 @@ export const authOptions: NextAuthOptions = {
 
             return true;
         },
-
         async session({ session }) {
             if (!session.user?.email) return session;
 
