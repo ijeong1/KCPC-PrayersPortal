@@ -2,6 +2,7 @@
 
 import { prisma } from '@/lib/prismaClient';
 import { getAuthSession } from '@/lib/auth'; // 사용자가 만든 인증 함수
+import { PrayerStatus } from '@prisma/client';
 
 export async function createResponseAction(
   prayerId: string,
@@ -32,7 +33,7 @@ export async function createResponseAction(
         id: prayerId, // 응답이 달린 기도 요청의 ID
       },
       data: {
-        status: 'completed', // 기도 요청의 상태를 'completed'로 변경
+        status: PrayerStatus.COMPLETED, // 기도 요청 상태를 'completed'로 변경
       },
     });
 

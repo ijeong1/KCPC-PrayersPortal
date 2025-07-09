@@ -81,8 +81,8 @@ enum Role {
 }
 
 enum PrayerStatus {
-  PENDING      // 아직 시작 안 함
-  IN_PROGRESS  // 중보기도 진행 중
-  COMPLETED    // 중보기도 완료
-  ARCHIVED     // 보관됨 (선택 사항)
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  ARCHIVED
 }
