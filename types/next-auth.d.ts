@@ -13,5 +13,6 @@ declare module "next-auth" {
       provider?: string;
       auth_provider_id?: string;
     };
+    accessToken?: string; // JWT 토큰 추가
   }
 }

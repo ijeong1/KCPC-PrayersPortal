@@ -18,9 +18,8 @@ export default async function LocaleLayout({
   const messages = await getMessages(locale);
 
   return (
-    <html lang={locale}>
-      <body>
-        <NextIntlClientProvider locale={locale} messages={messages}>
+    <div>
+      <NextIntlClientProvider locale={locale} messages={messages}>
           <Providers>
             <div className="flex flex-col min-h-screen ">
               { /* 상단 네비게이션 바 */ }
@@ -32,7 +31,6 @@ export default async function LocaleLayout({
             </div>
           </Providers>
         </NextIntlClientProvider>
-      </body>
-    </html>
+    </div>
   );
 }

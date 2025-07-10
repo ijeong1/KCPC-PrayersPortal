@@ -5,6 +5,7 @@ import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { prisma } from "@/lib/prismaClient";
 import { Role } from '@prisma/client';
+import { createJwt } from "@/lib/createJwt";
 
 // NextAuth 타입 확장을 위한 선언
 declare module "next-auth" {
@@ -64,7 +65,20 @@ export const authOptions: NextAuthOptions = {
 
             return true;
         },
-        async session({ session }) {
+        async jwt({ token, user, account }) {
+            if (user) {
+                token.sub = user.id;
+                
+                // 우리가 서명한 커스텀 JWT 생성
+                token.accessToken = await createJwt({
+                    sub: user.id,
+                    email: user.email,
+                    name: user.name,
+                });
+            }
+            return token;
+        },
+        async session({ session, token }) {
             if (!session.user?.email) return session;
 
             const profile = await prisma.profiles.findFirst({
@@ -89,6 +103,8 @@ export const authOptions: NextAuthOptions = {
                 session.user.provider = profile.provider;
                 session.user.auth_provider_id = profile.auth_provider_id;
             }
+
+            session.accessToken = token.accessToken as string | undefined
 
             return session;
         },

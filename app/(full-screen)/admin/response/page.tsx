@@ -1,10 +1,10 @@
-// app/admin/response/page.tsx
 'use client';
 
-import React, { useEffect, useState, useCallback, useMemo } from 'react';
+import { useSession } from 'next-auth/react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { motion, AnimatePresence, easeIn, easeOut } from 'framer-motion';
-import { SharedResponsePayload } from '@/services/responseService'; // 백엔드 서비스에서 정의된 타입 재사용
-import axiosClient from '@/lib/axiosClient'; // axiosClient 임포트
+import { SharedResponsePayload } from '@/services/responseService';
+import axiosClient from '@/lib/axiosClient';
 
 // 요청자 이름 마스킹 함수
 const maskRequesterName = (name: string | null | undefined): string => {
@@ -13,26 +13,36 @@ const maskRequesterName = (name: string | null | undefined): string => {
   return name.charAt(0) + '***';
 };
 
-const DISPLAY_COUNT = 3; // 한 번에 표시할 카드 개수 (조절 가능)
-const INTERVAL_TIME = 8000; // 카드 전환 간격 (밀리초)
+const DISPLAY_COUNT = 3;
+const INTERVAL_TIME = 8000;
 
 export default function AdminResponseDisplayPage() {
+  const { data: session, status } = useSession();
   const [allResponses, setAllResponses] = useState<SharedResponsePayload[]>([]);
   const [displayedResponses, setDisplayedResponses] = useState<SharedResponsePayload[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
 
-  // API에서 모든 공유된 응답을 가져옵니다.
+  const currentIndex = useRef(0);
+
+  useEffect(() => {
+    console.log('Session:', session);
+    console.log('Status:', status);
+    if (session?.accessToken) {
+      console.log('AccessToken:', session.accessToken);
+    } else {
+      console.log('No accessToken in session');
+    }
+  }, [session, status]);
+
+  // API에서 공유된 응답 가져오기
   useEffect(() => {
     const fetchResponses = async () => {
       setLoading(true);
       try {
-        // axios 대신 axiosClient 사용
-        const res = await axiosClient.get<SharedResponsePayload[]>('/responses'); 
+        const res = await axiosClient.get<SharedResponsePayload[]>('/responses');
         setAllResponses(res.data);
       } catch (err: any) {
-        // axiosClient는 에러 응답이 err.response?.data에 있을 수 있습니다.
         setError(err.response?.data?.error || err.message || '공유된 응답을 불러오는 데 실패했습니다.');
       } finally {
         setLoading(false);
@@ -53,18 +63,19 @@ export default function AdminResponseDisplayPage() {
       return;
     }
 
-    const endIndex = currentIndex + DISPLAY_COUNT;
+    const endIndex = currentIndex.current + DISPLAY_COUNT;
     let newDisplayed = [];
 
     if (endIndex <= allResponses.length) {
-      newDisplayed = allResponses.slice(currentIndex, endIndex);
+      newDisplayed = allResponses.slice(currentIndex.current, endIndex);
     } else {
-      newDisplayed = allResponses.slice(currentIndex, allResponses.length);
+      newDisplayed = allResponses.slice(currentIndex.current, allResponses.length);
       newDisplayed = newDisplayed.concat(allResponses.slice(0, endIndex - allResponses.length));
     }
+
     setDisplayedResponses(newDisplayed);
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % allResponses.length);
-  }, [allResponses, currentIndex]);
+    currentIndex.current = (currentIndex.current + 1) % allResponses.length;
+  }, [allResponses]);
 
   useEffect(() => {
     if (allResponses.length > 0) {
@@ -84,19 +95,13 @@ export default function AdminResponseDisplayPage() {
       opacity: 1, 
       y: 0, 
       rotateX: 0, 
-      transition: { 
-        duration: 0.8, 
-        ease: easeOut
-      } 
+      transition: { duration: 0.8, ease: easeOut } 
     },
     exit: { 
       opacity: 0, 
       y: -50, 
       rotateX: 90, 
-      transition: { 
-        duration: 0.6, 
-        ease: easeIn
-      } 
+      transition: { duration: 0.6, ease: easeIn } 
     },
   };
 
